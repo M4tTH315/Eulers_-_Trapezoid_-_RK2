@@ -1,0 +1,24 @@
+% Midpoint Method
+
+h = 0.9999/(10^3);             % step size
+x = 0:h:0.9999;                % x is between a and b       
+y(1) = 1;                      % initial condition
+
+for i=1:(length(x)-1)          % calculation loop
+    k_1 = f(x(i),y(i));
+    k_2 = f(x(i)+ h/2, y(i) + (h/2)*k_1);
+    y(i+1) = y(i) + h*(0.5*k_1 + 0.5*k_2);  % main equation    
+end
+y(i + 1)
+
+% Since exact solution y = 1/(1 - t^2) (This will change dependent on your function)
+% Let b = y(t) for when t = a = 0.9999
+b = 1/(1 - 0.9999^2);
+
+% Absolute Error
+error = abs(b - y(i+1))
+
+% f(t, y) used for approximation 
+function z = f(t, y)
+z = 2*t*(y^2);
+end
