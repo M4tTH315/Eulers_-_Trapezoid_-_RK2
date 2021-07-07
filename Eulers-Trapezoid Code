@@ -1,0 +1,53 @@
+% Eulers and Trapezoid Method
+
+% a = beginning bounds
+% b = end bounds
+% y = initial value
+% n = step size
+function eulers( a , b , y , n )
+
+% Initialization of variables
+digits(10)
+h = n;
+y(1) = y;
+t(1) = a;
+m = a:h:b;
+
+% Forwards Eulers Method
+for i = 1:(length(m)-1)
+   y(i+1) = y(i) + h*f(m(i), y(i));
+end
+
+% Approximation of Forward Euler
+forward = y(i + 1)
+
+% Backwards Eulers Method
+for i = 1:(length(m)-1)
+   ytemp = y(i) + h*f(m(i), y(i));  
+   y(i+1) = y(i) + h*f(m(i+1), ytemp);
+end
+
+% Approximation of Backwards Euler
+backward = y(i + 1)
+
+% Trapezoid
+for i = 1:(length(m)-1)
+   ytemp = y(i) + h*f(m(i), y(i));  
+   y(i+1) = y(i) + 0.5*h*(f(m(i+1), ytemp) + f(m(i), y(i)));
+end
+
+% Trapezoid Method
+trapezoid = y(i + 1)
+
+% Since exact solution y = 1/(1 - t^2)
+% Let yexact = y(t) for when t = a = 0.9999
+yexact = 1/(1 - b^2);
+
+% Absolute Error
+error_forward = abs(yexact - forward)
+error_backward = abs(yexact - backward)
+error_trapezoid = abs(yexact - trapezoid)
+
+% f(t, y) used for prediction/calculation 
+function z = f(t, y)
+z = 2*t*(y^2);
